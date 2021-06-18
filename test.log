@@ -1,0 +1,136 @@
+2021/06/16 00:09:24 /usr/local/linebot01/linebot-20210313.go:161: 
+2021/06/16 00:10:53 /usr/local/linebot01/linebot-20210313.go:161: sig
+2021/06/16 00:16:13 /usr/local/linebot01/linebot-20210313.go:161: sig : 
+2021/06/16 00:28:03 /usr/local/linebot01/linebot-20210313.go:159: sig : 
+2021/06/16 00:28:03 /usr/local/linebot01/linebot-20210313.go:162: sig : 
+2021/06/16 00:28:03 /usr/local/linebot01/linebot-20210313.go:168: ここまで
+2021/06/16 00:29:18 /usr/local/linebot01/linebot-20210313.go:159: sig : 
+2021/06/16 00:29:18 /usr/local/linebot01/linebot-20210313.go:162: sig : 
+2021/06/16 00:29:18 /usr/local/linebot01/linebot-20210313.go:168: ここまで
+2021/06/16 00:31:18 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 183.180.67.58:62268: EOF
+2021/06/16 00:31:51 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 183.180.67.58:62137: EOF
+2021/06/16 00:32:01 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 192.241.215.91:36550: tls: client offered only unsupported versions: []
+2021/06/17 22:28:44 /usr/local/linebot01/linebot-20210313.go:163: sig : 
+2021/06/17 22:28:44 /usr/local/linebot01/linebot-20210313.go:166: sig : 
+2021/06/17 22:28:44 /usr/local/linebot01/linebot-20210313.go:172: ここまで
+2021/06/17 22:29:50 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 147.92.150.196:43914: remote error: tls: internal error
+2021/06/17 22:40:38 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 162.142.125.54:56280: read tcp 10.138.0.4:443->162.142.125.54:56280: read: connection reset by peer
+2021/06/17 23:39:29 /usr/local/linebot01/linebot-20210313.go:172: sig : 
+2021/06/17 23:39:29 /usr/local/linebot01/linebot-20210313.go:175: sig : 
+2021/06/17 23:39:29 /usr/local/linebot01/linebot-20210313.go:181: ここまで
+2021/06/17 23:39:50 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 147.92.149.168:38688: remote error: tls: internal error
+2021/06/18 11:40:31 /usr/local/linebot01/linebot-20210313.go:184: sig : NkCX3UuMksQVBKsTlCbyxWF6EUCnjDCH+s2IuknDry0=
+2021/06/18 11:40:38 /usr/local/linebot01/linebot-20210313.go:184: sig : C50e0z3V0CCUS0sfLHA7qP32bOMBAbv57UF8zeemNoE=
+2021/06/18 11:40:38 /usr/lib/golang/src/net/http/h2_bundle.go:4217: http2: panic serving 147.92.150.196:49310: dial tcp 127.0.0.1:3306: connect: connection refused
+goroutine 25 [running]:
+net/http.(*http2serverConn).runHandler.func1(0xc0000100d0, 0xc00012bf8e, 0xc000108480)
+	/usr/lib/golang/src/net/http/h2_bundle.go:5712 +0x16f
+panic(0x708940, 0xc000132490)
+	/usr/lib/golang/src/runtime/panic.go:969 +0x1b9
+linebotmodule/myfunc.errorCheck(...)
+	/usr/local/linebot01/myfunc/myfunc.go:50
+linebotmodule/myfunc.Connectdb(0x75)
+	/usr/local/linebot01/myfunc/myfunc.go:62 +0x205
+linebotmodule/myfunc.Select_kaiin_host(0xc0000245d0, 0x21, 0x0, 0x0, 0x0)
+	/usr/local/linebot01/myfunc/myfunc.go:143 +0x66
+main.returnHTTPServer(0x7e1580, 0xc0000100d0, 0xc0000f8700)
+	/usr/local/linebot01/linebot-20210313.go:198 +0x345
+net/http.HandlerFunc.ServeHTTP(0x790388, 0x7e1580, 0xc0000100d0, 0xc0000f8700)
+	/usr/lib/golang/src/net/http/server.go:2042 +0x44
+net/http.(*ServeMux).ServeHTTP(0xc0000522c0, 0x7e1580, 0xc0000100d0, 0xc0000f8700)
+	/usr/lib/golang/src/net/http/server.go:2417 +0x1ad
+net/http.serverHandler.ServeHTTP(0xc0000b0000, 0x7e1580, 0xc0000100d0, 0xc0000f8700)
+	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
+net/http.initALPNRequest.ServeHTTP(0x7e1f80, 0xc00006bcb0, 0xc000071880, 0xc0000b0000, 0x7e1580, 0xc0000100d0, 0xc0000f8700)
+	/usr/lib/golang/src/net/http/server.go:3415 +0x8d
+net/http.(*http2serverConn).runHandler(0xc000108480, 0xc0000100d0, 0xc0000f8700, 0xc00000f860)
+	/usr/lib/golang/src/net/http/h2_bundle.go:5719 +0x8b
+created by net/http.(*http2serverConn).processHeaders
+	/usr/lib/golang/src/net/http/h2_bundle.go:5453 +0x505
+2021/06/18 11:42:12 /usr/local/linebot01/linebot-20210313.go:184: sig : sA51mGSgJNhoCn6hnHE1WzV2ZvKiaQT4MBXbWbMvSjg=
+2021/06/18 11:42:12 /usr/local/linebot01/linebot-20210313.go:219: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 11:42:13 /usr/local/linebot01/linebot-20210313.go:240: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 11:42:39 /usr/local/linebot01/linebot-20210313.go:184: sig : NkCX3UuMksQVBKsTlCbyxWF6EUCnjDCH+s2IuknDry0=
+2021/06/18 11:46:11 /usr/local/linebot01/linebot-20210313.go:215: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 11:46:12 /usr/local/linebot01/linebot-20210313.go:236: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 11:59:40 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 97.107.129.152:61000: tls: client offered only unsupported versions: [302 301]
+2021/06/18 12:03:42 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 88.80.189.24:40624: read tcp 10.138.0.4:443->88.80.189.24:40624: read: connection reset by peer
+2021/06/18 12:04:00 /usr/local/linebot01/linebot-20210313.go:215: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 12:04:00 /usr/local/linebot01/linebot-20210313.go:236: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 12:14:58 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 209.17.96.218:61104: tls: client offered only unsupported versions: [302 301]
+2021/06/18 12:23:25 /usr/local/linebot01/linebot-20210313.go:215: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 12:23:25 /usr/local/linebot01/linebot-20210313.go:236: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 12:26:11 /usr/local/linebot01/linebot-20210313.go:215: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 15:31:08 /usr/local/linebot01/linebot-20210313.go:215: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 16:23:11 /usr/local/linebot01/linebot-20210313.go:215: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 16:47:56 /usr/local/linebot01/linebot-20210313.go:178: b1d4b4eff13771ec1ec455e881babdd7
+2021/06/18 16:47:56 /usr/local/linebot01/linebot-20210313.go:179: ZZTYTAXZRkRxFpx9rxpo+ftCFH+7xvufn3Q/6QRFRGAX+du3qoOHG0BV2MFmmXh52Re5a5JYAgOreegJnNBIYAfN9EXwY4MfaR42jL4sieM1AlpGcGGk4TL+6Wko3QuPvNruY2ptbw4H+Zw4lNSwPgdB04t89/1O/w1cDnyilFU=
+2021/06/18 16:47:56 /usr/local/linebot01/linebot-20210313.go:217: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 16:51:07 /usr/local/linebot01/linebot-20210313.go:215: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 16:56:39 /usr/local/linebot01/linebot-20210313.go:215: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 17:26:13 /usr/local/linebot01/linebot-20210313.go:215: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 17:26:14 /usr/local/linebot01/linebot-20210313.go:236: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 17:27:48 /usr/local/linebot01/linebot-20210313.go:236: linebot: APIError 400 Invalid reply token
+2021/06/18 17:30:49 /usr/local/linebot01/linebot-20210313.go:215: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 17:30:49 /usr/local/linebot01/linebot-20210313.go:236: linebot: APIError 401 Authentication failed. Confirm that the access token in the authorization header is valid.
+2021/06/18 17:40:35 /usr/local/linebot01/linebot-20210313.go:236: linebot: APIError 400 Invalid reply token
+2021/06/18 17:42:17 /usr/local/linebot01/linebot-20210313.go:236: linebot: APIError 400 Invalid reply token
+2021/06/18 17:43:10 /usr/local/linebot01/linebot-20210313.go:236: linebot: APIError 400 Invalid reply token
+2021/06/18 17:43:20 /usr/local/linebot01/linebot-20210313.go:236: linebot: APIError 400 Invalid reply token
+2021/06/18 17:43:24 /usr/local/linebot01/linebot-20210313.go:236: linebot: APIError 400 Invalid reply token
+2021/06/18 17:58:29 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 45.79.151.57:61000: tls: client offered only unsupported versions: [302 301]
+2021/06/18 18:44:13 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 74.120.14.37:53196: read tcp 10.138.0.4:443->74.120.14.37:53196: read: connection reset by peer
+2021/06/18 19:47:11 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 162.142.125.53:43926: read tcp 10.138.0.4:443->162.142.125.53:43926: read: connection reset by peer
+2021/06/18 19:58:01 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 45.79.176.243:61000: tls: client offered only unsupported versions: [302 301]
+2021/06/18 20:19:06 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 192.241.217.154:36096: read tcp 10.138.0.4:443->192.241.217.154:36096: read: connection reset by peer
+2021/06/18 20:19:06 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 192.241.217.154:36122: read tcp 10.138.0.4:443->192.241.217.154:36122: read: connection reset by peer
+2021/06/18 20:19:06 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 192.241.217.154:36188: tls: no cipher suite supported by both client and server
+2021/06/18 20:19:07 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 192.241.217.154:36308: read tcp 10.138.0.4:443->192.241.217.154:36308: read: connection reset by peer
+2021/06/18 20:19:10 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 192.241.217.154:37260: read tcp 10.138.0.4:443->192.241.217.154:37260: read: connection reset by peer
+2021/06/18 20:19:11 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 192.241.217.154:39660: tls: client offered only unsupported versions: [302 301]
+2021/06/18 20:19:12 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 192.241.217.154:40454: read tcp 10.138.0.4:443->192.241.217.154:40454: read: connection reset by peer
+2021/06/18 20:19:15 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 192.241.217.154:41360: read tcp 10.138.0.4:443->192.241.217.154:41360: read: connection reset by peer
+2021/06/18 20:19:16 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 192.241.217.154:44128: read tcp 10.138.0.4:443->192.241.217.154:44128: read: connection reset by peer
+2021/06/18 20:19:19 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 192.241.217.154:45198: read tcp 10.138.0.4:443->192.241.217.154:45198: read: connection reset by peer
+2021/06/18 21:24:45 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 40.76.228.48:55125: read tcp 10.138.0.4:443->40.76.228.48:55125: i/o timeout
+2021/06/18 21:50:20 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 61.219.11.151:64995: tls: first record does not look like a TLS handshake
+2021/06/18 21:58:58 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 45.79.151.57:61000: tls: client offered only unsupported versions: [302 301]
+2021/06/18 22:22:23 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 113.22.145.224:40773: EOF
+2021/06/18 22:36:45 /usr/lib/golang/src/net/http/server.go:3095: http: TLS handshake error from 162.209.206.7:52257: tls: first record does not look like a TLS handshake
+2021/06/18 23:38:59 /usr/lib/golang/src/net/http/h2_bundle.go:4217: http2: panic serving 147.92.150.196:55940: runtime error: growslice: cap out of range
+goroutine 13 [running]:
+net/http.(*http2serverConn).runHandler.func1(0xc000010070, 0xc00011bf8e, 0xc0000f4180)
+	/usr/lib/golang/src/net/http/h2_bundle.go:5712 +0x16f
+panic(0x71ade0, 0x7d63f0)
+	/usr/lib/golang/src/runtime/panic.go:969 +0x1b9
+fmt.(*buffer).writeString(...)
+	/usr/lib/golang/src/fmt/print.go:82
+fmt.(*fmt).padString(0xc00006b630, 0xe7f5d2972dd00901, 0x5c5e201197d293f2)
+	/usr/lib/golang/src/fmt/format.go:110 +0xf6
+fmt.(*fmt).fmtS(0xc00006b630, 0xe7f5d2972dd00901, 0x5c5e201197d293f2)
+	/usr/lib/golang/src/fmt/format.go:359 +0x65
+fmt.(*pp).fmtString(0xc00006b5f0, 0xe7f5d2972dd00901, 0x5c5e201197d293f2, 0x76)
+	/usr/lib/golang/src/fmt/print.go:447 +0x131
+fmt.(*pp).printArg(0xc00006b5f0, 0x708940, 0xc00011e2e0, 0x76)
+	/usr/lib/golang/src/fmt/print.go:698 +0x7e7
+fmt.(*pp).doPrint(0xc00006b5f0, 0xc00011bb40, 0x1, 0x1)
+	/usr/lib/golang/src/fmt/print.go:1161 +0x105
+fmt.Sprint(0xc00011bb40, 0x1, 0x1, 0x708780, 0xc000069901)
+	/usr/lib/golang/src/fmt/print.go:249 +0x52
+log.Print(0xc00011bb40, 0x1, 0x1)
+	/usr/lib/golang/src/log/log.go:314 +0x3f
+main.returnHTTPServer(0x7e14e0, 0xc000010070, 0xc0000fa300)
+	/usr/local/linebot01/linebot-20210313.go:198 +0x2d9
+net/http.HandlerFunc.ServeHTTP(0x790320, 0x7e14e0, 0xc000010070, 0xc0000fa300)
+	/usr/lib/golang/src/net/http/server.go:2042 +0x44
+net/http.(*ServeMux).ServeHTTP(0xc0000502c0, 0x7e14e0, 0xc000010070, 0xc0000fa300)
+	/usr/lib/golang/src/net/http/server.go:2417 +0x1ad
+net/http.serverHandler.ServeHTTP(0xc0000b0000, 0x7e14e0, 0xc000010070, 0xc0000fa300)
+	/usr/lib/golang/src/net/http/server.go:2843 +0xa3
+net/http.initALPNRequest.ServeHTTP(0x7e1ee0, 0xc0000693e0, 0xc00006f500, 0xc0000b0000, 0x7e14e0, 0xc000010070, 0xc0000fa300)
+	/usr/lib/golang/src/net/http/server.go:3415 +0x8d
+net/http.(*http2serverConn).runHandler(0xc0000f4180, 0xc000010070, 0xc0000fa300, 0xc00000f440)
+	/usr/lib/golang/src/net/http/h2_bundle.go:5719 +0x8b
+created by net/http.(*http2serverConn).processHeaders
+	/usr/lib/golang/src/net/http/h2_bundle.go:5453 +0x505
+2021/06/18 23:50:42 /usr/local/linebot01/linebot-20210313.go:198: 0xc000017160
