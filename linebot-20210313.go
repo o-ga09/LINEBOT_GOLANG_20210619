@@ -15,7 +15,8 @@ import (
 	"crypto/tls"
 	"os"
 	"crypto/sha256"
-	"unsafe"
+	"encoding/hex"
+	"html/template"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
@@ -142,7 +143,12 @@ func main() {
 
 	go http.ListenAndServe(":80",http.HandlerFunc(redirect))
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", HelloHandler)
+	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))
+	mux.HandleFunc("/", Handler)
+	mux.HandleFunc("/cashform", cashformHandler)
+	mux.HandleFunc("/weightform_1", weightform_firstHandler)
+	mux.HandleFunc("/weightform_2", weightform_secondHandler)
+	//mux.HandleFunc("/", HelloHandler)
 	mux.HandleFunc("/callback", returnHTTPServer)
 
 	server := &http.Server{
@@ -178,7 +184,7 @@ func returnHTTPServer(w http.ResponseWriter, req *http.Request) {
 
 	bot, err := linebot.New(os.Getenv("LINE_CHANNEL_SECRET"), os.Getenv("LINE_ACCESS_TOKEN"),linebot.WithHTTPClient(client))
 	var reply_message string
-	var hash *string
+	var hash string
 	if err != nil {
 		log.Fatalf("1")
 	}
@@ -195,11 +201,10 @@ func returnHTTPServer(w http.ResponseWriter, req *http.Request) {
 
 	for _, event := range events {
 		hash = Tohash(event.Source.UserID)
-		log.Print(hash)
-		isExit_master := myfunc.Select_kaiin_host(*hash)
+		isExit_master := myfunc.Select_kaiin_host(hash)
 		if len(isExit_master) == 0 {
 			user, _ := bot.GetProfile(event.Source.UserID).Do()
-			myfunc.Insert_kaiin_host(*hash, user.DisplayName)
+			myfunc.Insert_kaiin_host(hash, user.DisplayName)
 			reply_message = "初めてですね！ありがとうございます。"
 			if _, err := bot.PushMessage(event.Source.UserID, linebot.NewTextMessage(reply_message)).Do(); err != nil {
 				log.Print(err)
@@ -210,7 +215,9 @@ func returnHTTPServer(w http.ResponseWriter, req *http.Request) {
 			case *linebot.TextMessage:
 				if strings.Contains(message.Text, "おはよう") || strings.Contains(message.Text, "こんにちは") || strings.Contains(message.Text, "こんばんは") {
 					reply_message = greeting(message.Text)
-				} else if message.Text == "健康管理" || strings.Contains(message.Text, "答") {
+				}else if message.Text == "家計簿" {
+					reply_message = "https://liff.line.me/1656121916-RkvbrzoM"
+				}else if message.Text == "健康管理" || strings.Contains(message.Text, "答") {
 					reply_message = bodymanagement(hash, message.Text)
 				} else {
 					reply_message = message.Text
@@ -248,6 +255,26 @@ func HelloHandler(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "Helloworld!@@@@@@")
 }
 
+func Handler(w http.ResponseWriter, r *http.Request) {
+    tmpl := template.Must(template.ParseFiles("template/index.html"))
+    tmpl.Execute(w, nil)
+} 
+
+func cashformHandler(w http.ResponseWriter, r *http.Request) {
+    tmpl := template.Must(template.ParseFiles("template/input_cash.html"))
+    tmpl.Execute(w, nil)
+} 
+
+func weightform_firstHandler(w http.ResponseWriter, r *http.Request) {
+    tmpl := template.Must(template.ParseFiles("template/input_weight_atfirst.html"))
+    tmpl.Execute(w, nil)
+} 
+
+func weightform_secondHandler(w http.ResponseWriter, r *http.Request) {
+    tmpl := template.Must(template.ParseFiles("template/input_weight_second.html"))
+    tmpl.Execute(w, nil)
+} 
+
 func greeting(message string) string {
 	var timezoneJST = time.FixedZone("Asia/Tokyo", 9*60*60)
 	time.Local = timezoneJST
@@ -264,9 +291,9 @@ func greeting(message string) string {
 	return "おやすみ"
 }
 
-func bodymanagement(user_id *string, text string) string {
+func bodymanagement(user_id string, text string) string {
 	reply_message := ""
-	result_bodyinfo := myfunc.Select_bodymanagement(*user_id)
+	result_bodyinfo := myfunc.Select_bodymanagement(user_id)
 	if text == "健康管理" {
 		if len(result_bodyinfo) == 0 {
 			reply_message = "初めてですね\n身長と体重を教えてください\n例)答 [身長] [体重]"
@@ -276,11 +303,11 @@ func bodymanagement(user_id *string, text string) string {
 	} else {
 		tmp := strings.Split(text, " ")
 		if len(tmp) == 3 {
-			myfunc.Insert_bodymanagement(*user_id, tmp[1], tmp[2])
+			myfunc.Insert_bodymanagement(user_id, tmp[1], tmp[2])
 			reply_message = "正しく記録したよ！"
 		} else if len(tmp) == 2 {
 			height := strconv.FormatFloat(result_bodyinfo[0].Height, 'f', -1, 64)
-			myfunc.Insert_bodymanagement(*user_id, tmp[1], height)
+			myfunc.Insert_bodymanagement(user_id, tmp[1], height)
 			reply_message = "正しく記録したよ！"
 		}
 	}
@@ -315,11 +342,22 @@ func getAPI(name string) getJson {
 	return data
 }
 
-func Tohash(originalstr string) *string {
+func Tohash(originalstr string) string {
 	salt := os.Getenv("SALT")
 	hashstr := []byte(originalstr + salt)
 
 	hash_sha256 := sha256.Sum256(hashstr)
 
-	return (*string)(unsafe.Pointer(&hash_sha256))
+	return hex.EncodeToString(hash_sha256[:])
+}
+
+func isMatch(hash,userid string) bool{
+	salt := os.Getenv("SALT")
+	hashstr := []byte(userid + salt)
+	hash_sha256 := sha256.Sum256(hashstr)
+
+	if hash == hex.EncodeToString(hash_sha256[:]) {
+		return true
+	}
+	return false
 }

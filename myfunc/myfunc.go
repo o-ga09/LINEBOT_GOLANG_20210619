@@ -99,7 +99,7 @@ func Insert_bodymanagement(user_id string, weight string, height string) {
 	fmt.Printf("Inserted %d row(s) of data.\n", rowCount)
 }
 
-func Insert_cashflow(user_id string, label string, money string, pauchased_item string) {
+func Insert_cashflow(user_id *string, label string, money string, pauchased_item string) {
 	var rowCount int64
 	con := Connectdb()
 	defer con.Close()
@@ -232,7 +232,7 @@ func Select_messagerecord(user_id string) []Messagerecord {
 	return results
 }
 
-func Update_data(user_name string, user_id string) {
+func Update_data(user_name string, user_id *string) {
 	var rowCount int64
 	con := Connectdb()
 	defer con.Close()

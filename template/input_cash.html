@@ -1,0 +1,42 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>収支管理フォーム</title>
+    <link rel="stylesheet" href="../static/css/style_cash.css">
+</head>
+
+<body>
+    <table border="1">
+        <tr>
+            <td>収支</td>
+            <td>
+                <select id="label">
+                    <option value="支出">支出</option>
+                    <option value="収入">収入</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>カテゴリ</td>
+            <td>
+                <select id="category">
+                    <option value="食費">食費</option>
+                    <option value="光熱費">光熱費</option>
+                    <option value="通信費">通信費</option>
+                    <option value="日用品費">日用品費</option>
+                    <option value="交際費">交際費</option>
+                    <option value="雑費">雑費</option>
+                    <option value="給料">雑費</option>
+                    <option value="その他">その他</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>金額</td>
+            <td><input type="text" value=""></td>
+        </tr>
+    </table>
+    
+    <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+    <script src="../static/js/input_cash.js"></script>
+</body>
+
