@@ -1,49 +1,34 @@
 version: "3.9"
 services:
   app:
+    image: linebotsrv01
     build:
-      context: .
-      dockerfile: ./docker/app/Dockerfile
       args:
-        - target=deploy
-    image: gcr.io/todo-app-20221107/go-app-test
+        - target=deploy-builder
     environment:
-      TODO_ENV: prod
+      ENV: prod
       PORT: 8080
-      TODO_DB_HOST: tododb01
-      TODO_DB_PORT: 8080
-      TODO_DB_USER: todo
-      TODO_DB_PASSWORD: P@ssw0rd
-      TODO_DB_NAME: todo
-      TODO_REDIS_HOST: todo-redis
-      TODO_REDIS_PORT: 8080
+      DB_HOST: linebotsrv02
+      DB_PORT: 3306
+      DB_USER: todo
+      DB_PASSWORD: P@ssw0rd
+      DB_NAME: linebot
     volumes:
       - .:/app
-    ports:
-      - '8080:8080'
-  tododb01:
-    build: ./docker/db/
-    image: gcr.io/todo-app-20221107/mysql
+  linebotsrv02:
+    image: mysql:8.0.29
     platform: linux/amd64
     container_name:  tododb01
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_USER: todo
+      MYSQL_USER: linebot
       MYSQL_PASSWORD: P@ssw0rd
-      MYSQL_DATABASE: todo
-      MYSQL_TCP_PORT: 8080
+      MYSQL_DATABASE: linebot
+      MYSQL_TCP_PORT: 3306
     volumes:
       - tododb01-data:/var/lib/mysql
-      - $PWD/docker/db/my.cnf:/etc/mysql/my.cnf:cached
+      - $PWD/_tools/mysql/conf.d:/etc/mysql/conf.d:cached
     ports:
-      - '3306:8080'
-    command: --port 8080
-  todo-redis:
-    build: ./docker/redis/
-    image: gcr.io/todo-app-20221107/redis
-    container_name: todo-redis
-    ports:
-      - '6379:8080'
-    command: --port 8080
+      - '3306:3306'
 volumes:
   tododb01-data:

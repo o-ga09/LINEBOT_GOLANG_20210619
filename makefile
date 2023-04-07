@@ -10,6 +10,9 @@ build-gcp: #	build docker image to cloud deploy
 	docker build -t gcr.io/todo-app-20221107/cloud-run-test:${DOCKER_TAG} \
 			--target deploy ./
 
+build-local:
+	docker compose build --no-cache
+
 up:
 	docker compose up
 

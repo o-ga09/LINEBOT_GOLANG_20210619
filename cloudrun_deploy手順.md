@@ -15,22 +15,26 @@ docker container rm 5c83bb584415
 docker image rmi taiti09/cloud-run-test
 ~~~
 
-- [ ] 1. デプロイ用のDockerイメージをビルド
+- [x] 0.プロジェクトIDをセット
+~~~
+gcloud config set project　todo-app-20221107
+~~~
+
+- [x] 1. デプロイ用のDockerイメージをビルド
 
 ~~~bash
-docker build -t gcr.io/todo-app-20221107/
-cloud-run-test:latest --target deploy ./
+docker build --platform linux/amd64 -t asia.gcr.io/todo-app-20221107/linebot:latest --target deploy ./
 ~~~
 
 - [ ] 2. GCPのCloud Registry にプッシュ
 
 ~~~bash
-gcloud builds submit --tag gcr.io/todo-app-20221107/cloud-run-test
+docker push asia.gcr.io/todo-app-20221107/linebot:latest
 ~~~
 
 - [ ] 3. Cloud Run にデプロイ
 ~~~bash
-gcloud run deploy --image gcr.io/todo-app-20221107/cloud-run-test --platform managed --region us-west1 
+gcloud run deploy --image asia.gcr.io/todo-app-20221107/linebot:latest --region asia-northeast1 
 ~~~
 
 - [ ] 4. Cloud Runのサービスを削除
