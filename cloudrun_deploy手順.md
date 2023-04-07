@@ -34,7 +34,7 @@ docker push asia.gcr.io/todo-app-20221107/linebot:latest
 
 - [ ] 3. Cloud Run にデプロイ
 ~~~bash
-gcloud run deploy --image asia.gcr.io/todo-app-20221107/linebot:latest --region asia-northeast1 
+gcloud run deploy --image asia.gcr.io/todo-app-20221107/linebot:latest --region asia-northeast1 --update-secrets=LINE_CHANNEL_SECRET=channel_secret:latest --update-secrets=LINE_ACCESS_TOKEN=access_token:latest
 ~~~
 
 - [ ] 4. Cloud Runのサービスを削除
