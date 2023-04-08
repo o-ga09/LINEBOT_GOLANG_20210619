@@ -35,13 +35,8 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
-            gcloud run deploy ${{ env.SERVICE_NAME }} \
-              --image ${{ env.IMAGE }} \
-              --project ${{ env.GCP_PROJECT_ID }} \
-              --region ${{ env.GCP_REGION }} \
-              --platform=managed \
-              --allow-unauthenticated \
-              --quiet \
-              --set-env-vars=ENV=PRODUCTION
-              --update-secrets=LINE_CHANNEL_SECRET=channel_secret:latest
-              --update-secrets=LINE_ACCESS_TOKEN=access_token:latest
+            gcloud run deploy 
+            --image ${{ env.IMAGE }} 
+            --region ${{ secrets.GCP_REGION }}
+            --update-secrets=LINE_CHANNEL_SECRET=channel_secret:latest 
+            --update-secrets=LINE_ACCESS_TOKEN=access_token:latest
