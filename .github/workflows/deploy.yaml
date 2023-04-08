@@ -35,8 +35,8 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
-            gcloud run deploy 
-            --image ${{ env.IMAGE }} 
-            --region ${{ secrets.GCP_REGION }}
-            --update-secrets=LINE_CHANNEL_SECRET=channel_secret:latest 
+            gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --image ${{ env.IMAGE }} \
+            --region ${{ secrets.GCP_REGION }} \
+            --update-secrets=LINE_CHANNEL_SECRET=channel_secret:latest \
             --update-secrets=LINE_ACCESS_TOKEN=access_token:latest
