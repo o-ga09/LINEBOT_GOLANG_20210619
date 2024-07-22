@@ -4,3 +4,8 @@ compatibility_date = "2024-04-15"
 
 [build]
 command = "make build"
+
+[vars]
+ENV = "dev"
+LINE_CHANNEL_SECRET = ""
+LINE_ACCESS_TOKEN = ""

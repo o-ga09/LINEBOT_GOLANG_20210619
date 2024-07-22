@@ -21,6 +21,8 @@ func (h *Handler) Healthcheck(w http.ResponseWriter, req *http.Request) {
 }
 
 func (h *Handler) CallBack(w http.ResponseWriter, req *http.Request) {
+	env := cloudflare.Getenv("ENV")
+	log.Println(env)
 	channel_secret := cloudflare.Getenv("LINE_CHANNEL_SECRET")
 	access_token := cloudflare.Getenv("LINE_ACCESS_TOKEN")
 	bot, err := linebot.New(channel_secret, access_token)
