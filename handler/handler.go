@@ -25,7 +25,7 @@ func (h *Handler) CallBack(w http.ResponseWriter, req *http.Request) {
 
 	var reply_message string
 	if err != nil {
-		log.Fatalf("can not connect line messaging api")
+		log.Fatalf("can not connect line messaging api: %v", err)
 	}
 
 	events, err := bot.ParseRequest(req)
