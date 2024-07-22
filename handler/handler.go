@@ -21,7 +21,15 @@ func (h *Handler) Healthcheck(w http.ResponseWriter, req *http.Request) {
 }
 
 func (h *Handler) CallBack(w http.ResponseWriter, req *http.Request) {
-	bot, err := linebot.New(os.Getenv("LINE_CHANNEL_SECRET"), os.Getenv("LINE_ACCESS_TOKEN"))
+	channel_secret, ok := os.LookupEnv("LINE_CHANNEL_SECRET")
+	if !ok {
+		log.Fatalf("can not get environment variable: channel secret")
+	}
+	access_token, ok := os.LookupEnv("LINE_ACCESS_TOKEN")
+	if !ok {
+		log.Fatalf("can not get environment variable: access token")
+	}
+	bot, err := linebot.New(channel_secret, access_token)
 
 	var reply_message string
 	if err != nil {
