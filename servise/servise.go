@@ -13,12 +13,12 @@ import (
 
 func ResponseBot(w http.ResponseWriter, req *http.Request) {
 	client := &http.Client{
-				Transport: &http.Transport{
-				TLSHandshakeTimeout: 100 * time.Second,
-				},
-			}
+		Transport: &http.Transport{
+			TLSHandshakeTimeout: 100 * time.Second,
+		},
+	}
 
-	bot, err := linebot.New(os.Getenv("LINE_CHANNEL_SECRET"), os.Getenv("LINE_ACCESS_TOKEN"),linebot.WithHTTPClient(client))
+	bot, err := linebot.New(os.Getenv("LINE_CHANNEL_SECRET"), os.Getenv("LINE_ACCESS_TOKEN"), linebot.WithHTTPClient(client))
 	var reply_message string
 	if err != nil {
 		log.Fatalf("can not connect line messaging api")
@@ -38,11 +38,11 @@ func ResponseBot(w http.ResponseWriter, req *http.Request) {
 		res := bot.GetProfile(event.Source.UserID)
 		profile, err := res.Do()
 		name := profile.DisplayName
-		if err != nil { 
+		if err != nil {
 			log.Printf("can not get profile")
 			name = "名無しさん"
 		}
-		reply_message = fmt.Sprintf("%sさん！ありがとうございます。",name)
+		reply_message = fmt.Sprintf("%sさん！ありがとうございます。", name)
 		if _, err := bot.PushMessage(event.Source.UserID, linebot.NewTextMessage(reply_message)).Do(); err != nil {
 			log.Print(err)
 		}
@@ -51,7 +51,7 @@ func ResponseBot(w http.ResponseWriter, req *http.Request) {
 			case *linebot.TextMessage:
 				if strings.Contains(message.Text, "おはよう") || strings.Contains(message.Text, "こんにちは") || strings.Contains(message.Text, "こんばんは") {
 					reply_message = greeting(message.Text)
-				}else {
+				} else {
 					reply_message = message.Text
 				}
 
