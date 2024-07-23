@@ -24,7 +24,14 @@ func (h *Handler) CallBack(w http.ResponseWriter, req *http.Request) {
 	env := cloudflare.Getenv("ENV")
 	log.Println(env)
 	channel_secret := cloudflare.Getenv("LINE_CHANNEL_SECRET")
+
 	access_token := cloudflare.Getenv("LINE_ACCESS_TOKEN")
+	if channel_secret != "" {
+		log.Println(channel_secret[0:5])
+	}
+	if access_token != "" {
+		log.Println(access_token[0:5])
+	}
 	bot, err := linebot.New(channel_secret, access_token)
 
 	var reply_message string
