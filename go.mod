@@ -10,3 +10,5 @@ require (
 require github.com/caarlos0/env/v6 v6.10.1
 
 require github.com/syumai/workers v0.26.1
+
+require github.com/line/line-bot-sdk-go/v8 v8.7.0 // indirect

@@ -6,6 +6,8 @@ import (
 	"net/http"
 
 	"github.com/line/line-bot-sdk-go/linebot"
+	"github.com/line/line-bot-sdk-go/v8/linebot/messaging_api"
+	"github.com/line/line-bot-sdk-go/v8/linebot/webhook"
 	"github.com/syumai/workers/cloudflare"
 )
 
@@ -21,25 +23,17 @@ func (h *Handler) Healthcheck(w http.ResponseWriter, req *http.Request) {
 }
 
 func (h *Handler) CallBack(w http.ResponseWriter, req *http.Request) {
-	env := cloudflare.Getenv("ENV")
-	log.Println(env)
+	client := &http.Client{}
 	channel_secret := cloudflare.Getenv("LINE_CHANNEL_SECRET")
-
 	access_token := cloudflare.Getenv("LINE_ACCESS_TOKEN")
-	if channel_secret != "" {
-		log.Println(channel_secret[0:5])
-	}
-	if access_token != "" {
-		log.Println(access_token[0:5])
-	}
-	bot, err := linebot.New(channel_secret, access_token)
+	bot, err := messaging_api.NewMessagingApiAPI(access_token, messaging_api.WithHTTPClient(client))
 
 	var reply_message string
 	if err != nil {
 		log.Fatalf("can not connect line messaging api: %v", err)
 	}
 
-	events, err := bot.ParseRequest(req)
+	cb, err := webhook.ParseRequest(channel_secret, req)
 	if err != nil {
 		if err == linebot.ErrInvalidSignature {
 			w.WriteHeader(400)
@@ -49,16 +43,41 @@ func (h *Handler) CallBack(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	for _, event := range events {
-		res := bot.GetProfile(event.Source.UserID)
-		profile, err := res.Do()
-		name := profile.DisplayName
-		if err != nil {
-			log.Fatal(err)
-		}
-		reply_message = fmt.Sprintf("%sさん！ありがとうございます。", name)
-		if _, err := bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(reply_message)).Do(); err != nil {
-			log.Print(err)
+	var name, content string
+	for _, event := range cb.Events {
+		// eventの種類でスイッチ
+		switch e := event.(type) {
+		case webhook.MessageEvent:
+			// profileを取得
+			switch s := e.Source.(type) {
+			case webhook.UserSource:
+				res, err := bot.GetProfile(s.UserId)
+				if err != nil {
+					log.Println(err)
+				}
+				name = res.DisplayName
+			}
+			// 送信メッセージを取得
+			switch m := e.Message.(type) {
+			case webhook.TextMessageContent:
+				content = m.Text
+			}
+
+			// メッセージを返信する
+			reply_message = fmt.Sprintf("%sさん！ありがとうございます。", name)
+			if _, err := bot.ReplyMessage(&messaging_api.ReplyMessageRequest{
+				ReplyToken: e.ReplyToken,
+				Messages: []messaging_api.MessageInterface{
+					messaging_api.TextMessage{
+						Text: reply_message,
+					},
+					messaging_api.TextMessage{
+						Text: content,
+					},
+				},
+			}); err != nil {
+				log.Print(err)
+			}
 		}
 	}
 }
